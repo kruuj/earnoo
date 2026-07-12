@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --bg: 0 0% 4%;
+  --surface: 0 0% 8%;
+  --text: 0 0% 96%;
+  --muted: 0 0% 53%;
+  --stroke: 0 0% 12%;
+  --accent: 0 0% 96%;
+  --font-body: "Inter", sans-serif;
+  --font-display: "Instrument Serif", serif;
+}
+
+@theme inline {
+  --color-bg: hsl(var(--bg));
+  --color-surface: hsl(var(--surface));
+  --color-text-primary: hsl(var(--text));
+  --color-muted: hsl(var(--muted));
+  --color-stroke: hsl(var(--stroke));
+  --color-accent: hsl(var(--accent));
+  --font-body: "Inter", sans-serif;
+  --font-display: "Instrument Serif", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: hsl(var(--bg));
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: hsl(var(--bg));
+  color: hsl(var(--text));
+  font-family: var(--font-body);
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video {
+  display: block;
+}
+
+::selection {
+  background: #89aacc;
+  color: #050505;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--bg));
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid hsl(var(--bg));
+  border-radius: 999px;
+  background: #4c4c4c;
+}
+
+:focus-visible {
+  outline: 2px solid #89aacc;
+  outline-offset: 4px;
+}
+
+.accent-gradient {
+  background: linear-gradient(90deg, #89aacc 0%, #4e85bf 100%);
+}
+
+.logo-ring {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  padding: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #89aacc 0%, #4e85bf 100%);
+  transition: transform 300ms ease, background 300ms ease;
+}
+
+.logo-ring:hover {
+  transform: rotate(6deg);
+  background: linear-gradient(270deg, #89aacc 0%, #4e85bf 100%);
+}
+
+.say-hi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  padding: 0.35rem 0.65rem;
+  background:
+    linear-gradient(hsl(var(--surface)), hsl(var(--surface))) padding-box,
+    linear-gradient(90deg, transparent, transparent) border-box;
+  color: hsl(var(--text));
+  font-size: 0.6875rem;
+  transition: transform 300ms ease, background 300ms ease;
+}
+
+.say-hi:hover {
+  transform: scale(1.04);
+  background:
+    linear-gradient(hsl(var(--surface)), hsl(var(--surface))) padding-box,
+    linear-gradient(90deg, #89aacc 0%, #4e85bf 100%) border-box;
+}
+
+.gradient-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  padding: 0.75rem 1.65rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  transition: color 300ms ease, background 300ms ease, transform 300ms ease;
+}
+
+.gradient-btn:hover {
+  transform: scale(1.05);
+}
+
+.gradient-btn--solid {
+  background:
+    linear-gradient(hsl(var(--text)), hsl(var(--text))) padding-box,
+    linear-gradient(hsl(var(--text)), hsl(var(--text))) border-box;
+  color: hsl(var(--bg));
+}
+
+.gradient-btn--solid:hover {
+  background:
+    linear-gradient(hsl(var(--bg)), hsl(var(--bg))) padding-box,
+    linear-gradient(90deg, #89aacc 0%, #4e85bf 100%) border-box;
+  color: hsl(var(--text));
+}
+
+.gradient-btn--outline {
+  background:
+    linear-gradient(hsl(var(--bg)), hsl(var(--bg))) padding-box,
+    linear-gradient(hsl(var(--stroke)), hsl(var(--stroke))) border-box;
+  color: hsl(var(--text));
+}
+
+.gradient-btn--outline:hover {
+  background:
+    linear-gradient(hsl(var(--bg)), hsl(var(--bg))) padding-box,
+    linear-gradient(90deg, #89aacc 0%, #4e85bf 100%) border-box;
+}
+
+.gradient-btn--glass {
+  background:
+    linear-gradient(rgb(8 8 8 / 68%), rgb(8 8 8 / 68%)) padding-box,
+    linear-gradient(rgb(255 255 255 / 22%), rgb(255 255 255 / 22%)) border-box;
+  color: white;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.gradient-btn--glass:hover {
+  background:
+    linear-gradient(rgb(8 8 8 / 78%), rgb(8 8 8 / 78%)) padding-box,
+    linear-gradient(90deg, #89aacc 0%, #4e85bf 100%) border-box;
+}
+
+.animated-gradient-border {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, #89aacc, #4e85bf, #9fb9d3, #89aacc) border-box;
+  background-size: 100% 100%, 250% 250%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.halftone {
+  pointer-events: none;
+  background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.2;
+  mix-blend-mode: multiply;
+}
+
+.journal-row:hover img {
+  transform: scale(1.03);
+}
+
+.exploration-card {
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.exploration-card:hover {
+  border-color: rgb(137 170 204 / 55%);
+  box-shadow: 0 28px 80px rgb(0 0 0 / 62%);
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+@keyframes role-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0 0, 0% 50%;
+  }
+  50% {
+    background-position: 0 0, 100% 50%;
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 1.5s ease-in-out infinite;
+}
+
+.animate-role-fade-in {
+  animation: role-fade-in 0.4s ease-out;
+}
+
+@media (min-width: 640px) {
+  .say-hi {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .gradient-btn {
+    min-height: 3rem;
+    padding-inline: 1.35rem;
+  }
+
+  .exploration-card {
+    border-radius: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
