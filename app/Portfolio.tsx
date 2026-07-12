@@ -130,10 +130,8 @@ const stats = [
 ];
 
 const socialLinks = [
-  { label: "Twitter", href: "https://twitter.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Dribbble", href: "https://dribbble.com" },
-  { label: "GitHub", href: "https://github.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/arnoo-erkinbekov-4bb126301" },
+  { label: "Telegram", href: "https://t.me/kruuj" },
 ];
 
 type LightboxItem = { src: string; alt: string; title: string };
@@ -200,9 +198,9 @@ function Navbar({ active }: { active: string }) {
           (scrolled ? "shadow-md shadow-black/30" : "")
         }
       >
-        <a className="logo-ring group" href="#home" aria-label="Michael Smith, home">
+        <a className="logo-ring group" href="#home" aria-label="Erkinbekov Arnoo, home">
           <span className="flex h-full w-full items-center justify-center rounded-full bg-bg font-display text-[13px] italic transition-transform group-hover:scale-110">
-            JA
+            EA
           </span>
         </a>
         <span className="mx-1 hidden h-5 w-px bg-stroke sm:block" aria-hidden="true" />
@@ -393,7 +391,7 @@ function Portfolio() {
           <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-32 text-center">
             <p className="blur-in mb-8 text-xs uppercase tracking-[0.3em] text-muted">Collection &apos;26</p>
             <h1 className="name-reveal mb-6 font-display text-6xl italic leading-[0.9] tracking-tight text-text-primary sm:text-7xl md:text-8xl lg:text-9xl">
-              Michael Smith
+              Erkinbekov Arnoo
             </h1>
             <p className="blur-in mb-5 text-base font-light text-muted md:text-xl">
               A{" "}
@@ -524,8 +522,8 @@ function Portfolio() {
               <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-muted md:text-base">
                 Uncommissioned studies, happy accidents, and ideas made simply to see where they lead.
               </p>
-              <a className="gradient-btn gradient-btn--outline mt-8" href="https://dribbble.com" target="_blank" rel="noreferrer">
-                Follow on Dribbble <span aria-hidden="true">↗</span>
+              <a className="gradient-btn gradient-btn--outline mt-8" href="https://www.linkedin.com/in/arnoo-erkinbekov-4bb126301" target="_blank" rel="noreferrer">
+                Linkedin <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
@@ -608,8 +606,8 @@ function Portfolio() {
             <h2 className="max-w-4xl text-5xl font-medium leading-[0.95] tracking-[-0.05em] text-white sm:text-6xl md:text-8xl">
               Let&apos;s make it <em className="font-display font-normal">real.</em>
             </h2>
-            <a className="gradient-btn gradient-btn--glass mt-10" href="mailto:hello@michaelsmith.com">
-              hello@michaelsmith.com <span aria-hidden="true">↗</span>
+            <a className="gradient-btn gradient-btn--glass mt-10" href="https://t.me/kruuj" target="_blank" rel="noreferrer">
+              Contact me <span aria-hidden="true">↗</span>
             </a>
           </div>
 
