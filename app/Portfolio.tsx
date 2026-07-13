@@ -18,7 +18,7 @@ const projects = [
   {
     title: "Automotive Motion",
     category: "Art direction · Motion",
-    src: "https://images.unsplash.com/photo-1683916139276-90ba45ef2e47?auto=format&fit=crop&w=1800&q=85",
+    src: "/images/automotive-motion.jpg",
     alt: "Red sports car speeding through a dimly lit tunnel",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
@@ -26,7 +26,7 @@ const projects = [
   {
     title: "Urban Architecture",
     category: "Photography · Editorial",
-    src: "https://images.unsplash.com/photo-1769622559799-a9f30076f7d0?auto=format&fit=crop&w=1800&q=85",
+    src: "/images/urban-architecture.jpg",
     alt: "Monolithic concrete building rising against a black sky",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
@@ -34,7 +34,7 @@ const projects = [
   {
     title: "Human Perspective",
     category: "Portraits · Campaign",
-    src: "https://images.unsplash.com/photo-1509650382971-17f6cae19506?auto=format&fit=crop&w=1800&q=85",
+    src: "/images/human-perspective.jpg",
     alt: "Low-key monochrome portrait emerging from deep shadow",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
@@ -42,7 +42,7 @@ const projects = [
   {
     title: "Brand Identity",
     category: "Strategy · Identity",
-    src: "https://images.unsplash.com/photo-1777652918753-d66882b15391?auto=format&fit=crop&w=1800&q=85",
+    src: "/images/brand-identity.jpg",
     alt: "Gradient business cards arranged on a wooden surface",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
@@ -55,7 +55,7 @@ const journalEntries = [
     summary: "On removing friction without removing character.",
     readTime: "6 min read",
     date: "May 18, 2026",
-    src: "https://images.unsplash.com/photo-1611348586758-9475c1158ede?auto=format&fit=crop&w=900&h=560&q=82",
+    src: "/images/journal-interfaces.jpg",
     alt: "Designer drawing letterforms with a pencil and metal ruler",
   },
   {
@@ -63,7 +63,7 @@ const journalEntries = [
     summary: "A framework for consistency that still leaves space for surprise.",
     readTime: "8 min read",
     date: "Apr 02, 2026",
-    src: "https://images.unsplash.com/photo-1452696193712-6cabf5103b63?auto=format&fit=crop&w=900&h=560&q=82",
+    src: "/images/journal-systems.jpg",
     alt: "Sky and mountains reflected in a geometric glass facade",
   },
   {
@@ -71,7 +71,7 @@ const journalEntries = [
     summary: "Why a smaller canvas often produces a sharper idea.",
     readTime: "5 min read",
     date: "Mar 11, 2026",
-    src: "https://images.unsplash.com/photo-1543204057-f7930e05bb7f?auto=format&fit=crop&w=900&h=560&q=82",
+    src: "/images/journal-constraints.jpg",
     alt: "Angular sunlight and shadow crossing a dark wooden wall",
   },
   {
@@ -79,7 +79,7 @@ const journalEntries = [
     summary: "Protecting the original intent through every handoff.",
     readTime: "9 min read",
     date: "Feb 22, 2026",
-    src: "https://images.unsplash.com/photo-1756830242843-7642e98ab5a3?auto=format&fit=crop&w=900&h=560&q=82",
+    src: "/images/journal-production.jpg",
     alt: "Laptop displaying source code on a dark developer desk",
   },
 ];
@@ -87,37 +87,37 @@ const journalEntries = [
 const explorations = [
   {
     title: "Blue Glass",
-    src: "https://images.unsplash.com/photo-1706101299176-292d8c5e470e?auto=format&fit=crop&w=1200&h=1200&q=85",
+    src: "/images/exploration-blue-glass.jpg",
     alt: "Translucent blue glass curves catching soft light",
     rotation: -4,
   },
   {
     title: "Light Trails",
-    src: "https://images.unsplash.com/photo-1710292036905-be7144b2ac8f?auto=format&fit=crop&w=1200&h=1200&q=85",
+    src: "/images/exploration-light-trails.jpg",
     alt: "Multicolored neon trails sweeping across black",
     rotation: 3,
   },
   {
     title: "Liquid Study",
-    src: "https://images.unsplash.com/photo-1550684848-86a5d8727436?auto=format&fit=crop&w=1200&h=1200&q=85",
+    src: "/images/exploration-liquid-study.jpg",
     alt: "Blue and yellow oil forming fluid macro patterns",
     rotation: 5,
   },
   {
     title: "Color Geometry",
-    src: "https://images.unsplash.com/photo-1709803056954-aff96d0faf1c?auto=format&fit=crop&w=1200&h=1200&q=85",
+    src: "/images/exploration-color-geometry.jpg",
     alt: "Color-blocked architectural steps beneath a blue sky",
     rotation: -3,
   },
   {
     title: "Iridescent Fold",
-    src: "https://images.unsplash.com/photo-1635957645025-d26009c61aa2?auto=format&fit=crop&w=1200&h=1200&q=85",
+    src: "/images/exploration-iridescent-fold.jpg",
     alt: "Dark holographic fabric reflecting rainbow highlights",
     rotation: -5,
   },
   {
     title: "Dune Study",
-    src: "https://images.unsplash.com/photo-1555001339-d5d316038dc2?auto=format&fit=crop&w=1200&h=1200&q=85",
+    src: "/images/exploration-dune-study.jpg",
     alt: "Aerial view of pink sand dunes shaped by wind",
     rotation: 4,
   },
