@@ -2,13 +2,10 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { AnimatePresence, motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { HlsVideo } from "./components/HlsVideo";
 import { Lightbox } from "./components/Lightbox";
-import { LoadingScreen } from "./components/LoadingScreen";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
@@ -18,7 +15,7 @@ const projects = [
   {
     title: "FINCA Bank",
     category: "UX Research · Product Design · Mobile App · Desktop",
-    src: "/images/finca.png",
+    src: "/images/finca.webp",
     alt: "Red sports car speeding through a dimly lit tunnel",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
@@ -26,7 +23,7 @@ const projects = [
   {
     title: "Bishkek Petroleum",
     category: "Landing Page · WEB · Branding",
-    src: "/images/bishkekpetroleum.png",
+    src: "/images/bishkekpetroleum.webp",
     alt: "Monolithic concrete building rising against a black sky",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
@@ -34,7 +31,7 @@ const projects = [
   {
     title: "TOP - Football",
     category: "Mobile App · UX/UI Design",
-    src: "/images/topfootball.png",
+    src: "/images/topfootball.webp",
     alt: "Low-key monochrome portrait emerging from deep shadow",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
@@ -42,7 +39,7 @@ const projects = [
   {
     title: "APAP University",
     category: "Landing Page · WEB · Branding",
-    src: "/images/apap.png",
+    src: "/images/apap.webp",
     alt: "Gradient business cards arranged on a wooden surface",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
@@ -54,7 +51,7 @@ const career = [
     company: "FINCA Bank",
     role: "UX Researcher & Middle Product Designer",
     period: "2026 — current",
-    icon: "/icons/Finca.svg",
+    icon: "/icons/Finca.png",
   },
 
   {
@@ -126,7 +123,7 @@ const tools = [
 const explorations = [
   {
     title: "Credit Finca",
-    src: "/images/credot.png",
+    src: "/images/credot.webp",
     alt: "Translucent blue glass curves catching soft light",
     rotation: -4,
   },
@@ -268,10 +265,10 @@ function Navbar({ active }: { active: string }) {
 }
 
 function Portfolio() {
-  const [isLoading, setIsLoading] = useState(true);
   const [roleIndex, setRoleIndex] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
   const [lightboxItem, setLightboxItem] = useState<LightboxItem | null>(null);
+  const [heroVideoReady, setHeroVideoReady] = useState(false);
   const [footerVideoReady, setFooterVideoReady] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
@@ -280,13 +277,23 @@ function Portfolio() {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
 
-  const finishLoading = useCallback(() => setIsLoading(false), []);
-
   useEffect(() => {
     const timer = window.setInterval(() => {
       setRoleIndex((current) => (current + 1) % roles.length);
     }, 2000);
     return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection?.saveData;
+
+    if (reducedMotion || saveData) return;
+
+    const timer = window.setTimeout(() => setHeroVideoReady(true), 250);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -324,114 +331,134 @@ function Portfolio() {
   }, [footerVideoReady]);
 
   useEffect(() => {
-    if (isLoading || !rootRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!rootRef.current) return;
 
-    const context = gsap.context(() => {
-      if (reducedMotion) {
-        gsap.set([".name-reveal", ".blur-in"], { opacity: 1, y: 0, filter: "blur(0px)" });
-        return;
-      }
+    let disposed = false;
+    let cleanup: (() => void) | undefined;
 
-      const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-      heroTimeline
-        .fromTo(
-          ".name-reveal",
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1.2, delay: 0.1 },
-        )
-        .fromTo(
-          ".blur-in",
-          { opacity: 0, filter: "blur(10px)", y: 20 },
-          { opacity: 1, filter: "blur(0px)", y: 0, duration: 1, stagger: 0.1 },
-          "-=0.75",
-        );
+    const setupAnimations = async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
 
-      if (explorationRef.current && explorationContentRef.current) {
-        ScrollTrigger.create({
-          trigger: explorationRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          pin: explorationContentRef.current,
-          pinSpacing: false,
-        });
+      if (disposed || !rootRef.current) return;
 
-        const columns = explorationRef.current.querySelectorAll<HTMLElement>("[data-parallax-column]");
-        if (columns[0]) {
-          gsap.fromTo(
-            columns[0],
-            { yPercent: 12 },
-            {
-              yPercent: -22,
-              ease: "none",
-              scrollTrigger: {
-                trigger: explorationRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1,
-              },
-            },
-          );
+      gsap.registerPlugin(ScrollTrigger);
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const context = gsap.context(() => {
+        if (reducedMotion) {
+          gsap.set([".name-reveal", ".blur-in"], { opacity: 1, y: 0, filter: "blur(0px)" });
+          return;
         }
-        if (columns[1]) {
-          gsap.fromTo(
-            columns[1],
-            { yPercent: -2 },
-            {
-              yPercent: -34,
-              ease: "none",
-              scrollTrigger: {
-                trigger: explorationRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1.2,
-              },
-            },
+
+        const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+        heroTimeline
+          .fromTo(
+            ".name-reveal",
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1.2, delay: 0.1 },
+          )
+          .fromTo(
+            ".blur-in",
+            { opacity: 0, filter: "blur(10px)", y: 20 },
+            { opacity: 1, filter: "blur(0px)", y: 0, duration: 1, stagger: 0.1 },
+            "-=0.75",
           );
+
+        if (explorationRef.current && explorationContentRef.current) {
+          ScrollTrigger.create({
+            trigger: explorationRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            pin: explorationContentRef.current,
+            pinSpacing: false,
+          });
+
+          const columns = explorationRef.current.querySelectorAll<HTMLElement>("[data-parallax-column]");
+          if (columns[0]) {
+            gsap.fromTo(
+              columns[0],
+              { yPercent: 12 },
+              {
+                yPercent: -22,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: explorationRef.current,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 1,
+                },
+              },
+            );
+          }
+          if (columns[1]) {
+            gsap.fromTo(
+              columns[1],
+              { yPercent: -2 },
+              {
+                yPercent: -34,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: explorationRef.current,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 1.2,
+                },
+              },
+            );
+          }
         }
-      }
 
-      if (marqueeRef.current) {
-        gsap.to(marqueeRef.current, {
-          xPercent: -50,
-          duration: 40,
-          ease: "none",
-          repeat: -1,
-        });
-      }
-    }, rootRef);
+        if (marqueeRef.current) {
+          gsap.to(marqueeRef.current, {
+            xPercent: -50,
+            duration: 40,
+            ease: "none",
+            repeat: -1,
+          });
+        }
+      }, rootRef);
 
-    const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 100);
-    void document.fonts?.ready.then(() => ScrollTrigger.refresh());
+      const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 100);
+      void document.fonts?.ready.then(() => {
+        if (!disposed) ScrollTrigger.refresh();
+      });
+
+      cleanup = () => {
+        window.clearTimeout(refresh);
+        context.revert();
+      };
+    };
+
+    void setupAnimations();
 
     return () => {
-      window.clearTimeout(refresh);
-      context.revert();
+      disposed = true;
+      cleanup?.();
     };
-  }, [isLoading]);
+  }, []);
 
   return (
     <div ref={rootRef} className="min-h-screen bg-bg text-text-primary">
-      <AnimatePresence>{isLoading && <LoadingScreen onComplete={finishLoading} />}</AnimatePresence>
       <Navbar active={activeSection} />
 
-      <motion.main
-        animate={{ opacity: isLoading ? 0 : 1 }}
-        initial={{ opacity: 0 }}
-        transition={{ duration: 0.65, ease: EASE }}
-        aria-hidden={isLoading}
-      >
+      <main>
         <section ref={heroRef} id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-          <video className="absolute left-1/2 top-[40%] scale-120 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover" 
-          src="/videos/fly.mp4" 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          preload="auto" 
-          aria-hidden="true" 
-          />
+          {heroVideoReady && (
+            <video
+              className="absolute left-1/2 top-[40%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-120 object-cover"
+              src="/videos/fly.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          )}
 
           <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-bg to-transparent" aria-hidden="true" />
@@ -542,7 +569,7 @@ function Portfolio() {
 >
   <img
     className="absolute inset-0 h-full w-full object-cover object-center transition duration-1000 ease-out group-hover:scale-[1.04] group-hover:saturate-125"
-    src="/images/exploration-iridescent-fold.png"    
+    src="/images/exploration-iridescent-fold.webp"
     alt="Abstract iridescent fabric artwork"
     loading="lazy"
   />
@@ -662,7 +689,7 @@ function Portfolio() {
 <span className="about-mark overflow-hidden" aria-hidden="true">
   <img
     className="h-full w-full object-cover"
-    src="/icons/google.svg"
+    src="/icons/google.png"
     alt=""
   />
 </span>
@@ -831,7 +858,7 @@ function Portfolio() {
             </div>
           </div>
         </footer>
-      </motion.main>
+      </main>
 
       <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />
     </div>
