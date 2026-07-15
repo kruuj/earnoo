@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   description:
     "Independent designer and developer shaping expressive digital experiences from Chicago.",
   icons: {
-    icon: "/favvicon.svg",
-    shortcut: "/favvicon.svg",
-    apple: "/favvicon.svg",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   openGraph: {
     type: "website",
