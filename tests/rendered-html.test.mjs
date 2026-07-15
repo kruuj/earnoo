@@ -25,7 +25,7 @@ async function render() {
   );
 }
 
-test("server-renders the portfolio immediately", async () => {
+test("server-renders the cinematic portfolio loader", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -35,7 +35,7 @@ test("server-renders the portfolio immediately", async () => {
   assert.match(html, /Erkinbekov Arnoo/);
   assert.match(html, /Collection/);
   assert.match(html, /Selected Work/);
-  assert.doesNotMatch(html, /Loading portfolio|aria-busy="true"/);
+  assert.match(html, /Loading portfolio|aria-busy="true"/);
 });
 
 test("keeps heavy media and animation work off the critical path", async () => {
@@ -44,7 +44,8 @@ test("keeps heavy media and animation work off the critical path", async () => {
     readFile(new URL("app/components/HlsVideo.tsx", templateRoot), "utf8"),
   ]);
 
-  assert.doesNotMatch(portfolio, /LoadingScreen|isLoading/);
+  assert.match(portfolio, /LoadingScreen/);
+  assert.match(portfolio, /isLoading/);
   assert.match(portfolio, /import\("gsap"\)/);
   assert.match(portfolio, /import\("gsap\/ScrollTrigger"\)/);
   assert.match(portfolio, /heroVideoReady/);

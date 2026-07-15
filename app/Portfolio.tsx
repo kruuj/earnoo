@@ -2,10 +2,11 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { HlsVideo } from "./components/HlsVideo";
 import { Lightbox } from "./components/Lightbox";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
@@ -265,6 +266,7 @@ function Navbar({ active }: { active: string }) {
 }
 
 function Portfolio() {
+  const [isLoading, setIsLoading] = useState(true);
   const [roleIndex, setRoleIndex] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
   const [lightboxItem, setLightboxItem] = useState<LightboxItem | null>(null);
@@ -276,6 +278,8 @@ function Portfolio() {
   const explorationContentRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
+
+  const finishLoading = useCallback(() => setIsLoading(false), []);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -331,7 +335,7 @@ function Portfolio() {
   }, [footerVideoReady]);
 
   useEffect(() => {
-    if (!rootRef.current) return;
+    if (isLoading || !rootRef.current) return;
 
     let disposed = false;
     let cleanup: (() => void) | undefined;
@@ -438,13 +442,19 @@ function Portfolio() {
       disposed = true;
       cleanup?.();
     };
-  }, []);
+  }, [isLoading]);
 
   return (
     <div ref={rootRef} className="min-h-screen bg-bg text-text-primary">
+      <AnimatePresence>{isLoading && <LoadingScreen onComplete={finishLoading} />}</AnimatePresence>
       <Navbar active={activeSection} />
 
-      <main>
+      <motion.main
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.65, ease: EASE }}
+        aria-hidden={isLoading}
+      >
         <section ref={heroRef} id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
           {heroVideoReady && (
             <video
@@ -858,7 +868,7 @@ function Portfolio() {
             </div>
           </div>
         </footer>
-      </main>
+      </motion.main>
 
       <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />
     </div>
