@@ -1,5 +1,6 @@
 "use client";
 
+import Hls, { ErrorTypes, Events } from "hls.js";
 import { useEffect, useRef } from "react";
 
 export const PORTFOLIO_VIDEO_URL =
@@ -25,7 +26,7 @@ export function HlsVideo({
       return;
     }
 
-    let hls: import("hls.js").default | null = null;
+    let hls: Hls | null = null;
     let disposed = false;
     let nativeReadyHandler: (() => void) | null = null;
 
@@ -43,7 +44,33 @@ export function HlsVideo({
       }
     };
 
-    if (
+    if (Hls.isSupported()) {
+      hls = new Hls({
+        enableWorker: true,
+      });
+
+      hls.attachMedia(video);
+      hls.on(Events.MEDIA_ATTACHED, () => {
+        if (!disposed) {
+          hls?.loadSource(src);
+        }
+      });
+      hls.on(Events.MANIFEST_PARSED, playVideo);
+      hls.on(Events.ERROR, (_event, data) => {
+        if (!data.fatal || disposed || !hls) {
+          return;
+        }
+
+        if (data.type === ErrorTypes.NETWORK_ERROR) {
+          hls.startLoad();
+        } else if (data.type === ErrorTypes.MEDIA_ERROR) {
+          hls.recoverMediaError();
+        } else {
+          hls.destroy();
+          hls = null;
+        }
+      });
+    } else if (
       video.canPlayType("application/vnd.apple.mpegurl") ||
       video.canPlayType("application/x-mpegURL")
     ) {
@@ -51,34 +78,6 @@ export function HlsVideo({
       video.addEventListener("loadedmetadata", nativeReadyHandler);
       video.src = src;
       video.load();
-    } else {
-      void import("hls.js").then(({ default: Hls, ErrorTypes, Events }) => {
-        if (disposed || !Hls.isSupported()) return;
-
-        hls = new Hls({
-          enableWorker: true,
-          capLevelToPlayerSize: true,
-          startLevel: -1,
-        });
-
-        hls.attachMedia(video);
-        hls.on(Events.MEDIA_ATTACHED, () => {
-          if (!disposed) hls?.loadSource(src);
-        });
-        hls.on(Events.MANIFEST_PARSED, playVideo);
-        hls.on(Events.ERROR, (_event, data) => {
-          if (!data.fatal || disposed || !hls) return;
-
-          if (data.type === ErrorTypes.NETWORK_ERROR) {
-            hls.startLoad();
-          } else if (data.type === ErrorTypes.MEDIA_ERROR) {
-            hls.recoverMediaError();
-          } else {
-            hls.destroy();
-            hls = null;
-          }
-        });
-      });
     }
 
     return () => {
@@ -108,7 +107,7 @@ export function HlsVideo({
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       aria-hidden="true"
       tabIndex={-1}
     />
