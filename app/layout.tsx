@@ -9,8 +9,34 @@ export const metadata: Metadata = {
   description:
     "Independent designer and developer shaping expressive digital experiences from Chicago.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/favvicon.svg",
+    shortcut: "/favvicon.svg",
+    apple: "/favvicon.svg",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://earnoo.vercel.app/",
+    siteName: "Erkinbekov Arnoo",
+    title: "Erkinbekov Arnoo — Product Designer",
+    description:
+      "UX research, product design and expressive digital experiences.",
+    images: [
+      {
+        url: "https://earnoo.vercel.app/og-preview-v2.png",
+        width: 1200,
+        height: 630,
+        alt: "Erkinbekov Arnoo portfolio preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Erkinbekov Arnoo — Product Designer",
+    description:
+      "UX research, product design and expressive digital experiences.",
+    images: [
+      "https://earnoo.vercel.app/og-preview-v2.png",
+    ],
   },
 };
 
