@@ -12,82 +12,121 @@ import { LoadingScreen } from "./components/LoadingScreen";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
-const roles = ["Creative", "Fullstack", "Founder", "Scholar"];
+const roles = ["Creative", "Designer", "UX Enthusiast"];
 
 const projects = [
   {
-    title: "Automotive Motion",
-    category: "Art direction · Motion",
-    src: "/images/automotive-motion.jpg",
+    title: "FINCA Bank",
+    category: "UX Research · Product Design · Mobile App · Desktop",
+    src: "/images/finca.png",
     alt: "Red sports car speeding through a dimly lit tunnel",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
   },
   {
-    title: "Urban Architecture",
-    category: "Photography · Editorial",
-    src: "/images/urban-architecture.jpg",
+    title: "Bishkek Petroleum",
+    category: "Landing Page · WEB · Branding",
+    src: "/images/bishkekpetroleum.png",
     alt: "Monolithic concrete building rising against a black sky",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
   },
   {
-    title: "Human Perspective",
-    category: "Portraits · Campaign",
-    src: "/images/human-perspective.jpg",
+    title: "TOP - Football",
+    category: "Mobile App · UX/UI Design",
+    src: "/images/topfootball.png",
     alt: "Low-key monochrome portrait emerging from deep shadow",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
   },
   {
-    title: "Brand Identity",
-    category: "Strategy · Identity",
-    src: "/images/brand-identity.jpg",
+    title: "APAP University",
+    category: "Landing Page · WEB · Branding",
+    src: "/images/apap.png",
     alt: "Gradient business cards arranged on a wooden surface",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
   },
 ];
 
-const journalEntries = [
+const career = [
   {
-    title: "Why the best interfaces feel inevitable",
-    summary: "On removing friction without removing character.",
-    readTime: "6 min read",
-    date: "May 18, 2026",
-    src: "/images/journal-interfaces.jpg",
-    alt: "Designer drawing letterforms with a pencil and metal ruler",
+    company: "FINCA Bank",
+    role: "UX Researcher & Middle Product Designer",
+    period: "2026 — current",
+    icon: "/icons/Finca.svg",
+  },
+
+  {
+    company: "Project-Based Work",
+    role: "Independent Designer, Branding & Product Design",
+    period: "2025",
+    icon: "/icons/deep.png",
+  },
+  
+  {
+    company: "Oracle Digital",
+    role: "UX/UI Designer",
+    period: "2024",
+    icon: "/icons/oracle.png",
+  },
+];
+
+const aboutPartners = [
+  {
+    name: "Bishkek Petroleum",
+    logo: "/icons/bishkek-petroleum.png",
+    fallback: "BP",
   },
   {
-    title: "Designing systems with room to breathe",
-    summary: "A framework for consistency that still leaves space for surprise.",
-    readTime: "8 min read",
-    date: "Apr 02, 2026",
-    src: "/images/journal-systems.jpg",
-    alt: "Sky and mountains reflected in a geometric glass facade",
+    name: "Bay Tash Group",
+    logo: "/icons/ay-tash-group.png",
+    fallback: "BT",
   },
   {
-    title: "The quiet power of creative constraints",
-    summary: "Why a smaller canvas often produces a sharper idea.",
-    readTime: "5 min read",
-    date: "Mar 11, 2026",
-    src: "/images/journal-constraints.jpg",
-    alt: "Angular sunlight and shadow crossing a dark wooden wall",
+    name: "Selected Kyrgyz partner",
+    logo: "/icons/kyrgyz-partner.png",
+    fallback: "KG",
+  },
+];
+
+const tools = [
+  {
+    name: "Figma",
+    detail: "general design tool",
+    icon: "/icons/figma.png",
   },
   {
-    title: "From prototype to production without losing soul",
-    summary: "Protecting the original intent through every handoff.",
-    readTime: "9 min read",
-    date: "Feb 22, 2026",
-    src: "/images/journal-production.jpg",
-    alt: "Laptop displaying source code on a dark developer desk",
+    name: "Higgsfield",
+    detail: "visual generations",
+    icon: "/icons/higgsfield.png",
+  },
+  {
+    name: "ChatGPT + Gemini",
+    detail: "research & ideation",
+    icon: "/icons/chat.png",
+  },
+  {
+    name: "Adobe After Effects",
+    detail: "product motion",
+    icon: "/icons/ae.png",
+  },
+  {
+    name: "Codex",
+    detail: "coding + agentic work",
+    icon: "/icons/codex.png",
+  },
+  {
+    name: "Notion",
+    detail: "project management",
+    icon: "/icons/notion.png",
   },
 ];
 
 const explorations = [
   {
-    title: "Blue Glass",
-    src: "/images/exploration-blue-glass.jpg",
+    title: "Credit Finca",
+    src: "/images/credot.png",
     alt: "Translucent blue glass curves catching soft light",
     rotation: -4,
   },
@@ -124,9 +163,9 @@ const explorations = [
 ];
 
 const stats = [
-  { value: "20+", label: "Years Experience" },
-  { value: "95+", label: "Projects Done" },
-  { value: "200%", label: "Satisfied Clients" },
+  { value: "3+", label: "Years Experience" },
+  { value: "15+", label: "Projects Done" },
+  { value: "99%", label: "Satisfied Clients" },
 ];
 
 const socialLinks = [
@@ -179,7 +218,7 @@ function Navbar({ active }: { active: string }) {
   const items = [
     { label: "Home", href: "#home", id: "home" },
     { label: "Work", href: "#work", id: "work" },
-    { label: "Resume", href: "#resume", id: "resume" },
+    { label: "About Me", href: "#about", id: "about" },
   ];
 
   useEffect(() => {
@@ -220,8 +259,8 @@ function Navbar({ active }: { active: string }) {
           </a>
         ))}
         <span className="mx-1 hidden h-5 w-px bg-stroke sm:block" aria-hidden="true" />
-        <a className="say-hi" href="#contact">
-          <span>Say hi</span><span aria-hidden="true">↗</span>
+        <a className="say-hi" href="https://t.me/kruuj" target="_blank" rel="noreferrer">
+          <span>Contact Me</span><span aria-hidden="true">.✦ ݁˖</span>
         </a>
       </nav>
     </header>
@@ -384,12 +423,22 @@ function Portfolio() {
         aria-hidden={isLoading}
       >
         <section ref={heroRef} id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-          <HlsVideo className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover" />
-          <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
+          <video className="absolute left-1/2 top-[40%] scale-120 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover" 
+          src="/videos/fly.mp4" 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          preload="auto" 
+          aria-hidden="true" 
+          />
+
+          <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-bg to-transparent" aria-hidden="true" />
 
-          <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-32 text-center">
-            <p className="blur-in mb-8 text-xs uppercase tracking-[0.3em] text-muted">Collection &apos;26</p>
+          <div className="translate-y-16 md:translate-y-16 relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-32 text-center">
+            <p className="blur-in mb-8 inline-flex items-center justify-center rounded-[18px] border border-white/20 bg-white/2 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.28em] text-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_24px_rgba(0,0,0,0.12)] backdrop-blur-sm backdrop-saturate-100">
+  Collection &apos;26 </p>
             <h1 className="name-reveal mb-6 font-display text-6xl italic leading-[0.9] tracking-tight text-text-primary sm:text-7xl md:text-8xl lg:text-9xl">
               Erkinbekov Arnoo
             </h1>
@@ -398,14 +447,14 @@ function Portfolio() {
               <span key={roleIndex} className="inline-block animate-role-fade-in font-display text-xl italic text-text-primary md:text-2xl">
                 {roles[roleIndex]}
               </span>{" "}
-              lives in Chicago.
+              lives in Kyrgyzstan.
             </p>
             <p className="blur-in mb-12 max-w-md text-sm leading-6 text-muted md:text-base md:leading-7">
               Designing seamless digital interactions by focusing on the unique nuances which bring systems to life.
             </p>
             <div className="blur-in flex flex-wrap items-center justify-center gap-4">
-              <a className="gradient-btn gradient-btn--solid" href="#work">
-                See Works <span aria-hidden="true">↓</span>
+              <a className="gradient-btn gradient-btn--solid" href="/Arnoo UXUI Resume.pdf" download="Arnoo UXUI Resume.pdf">
+                CV / Resume <span aria-hidden="true">↓</span>
               </a>
               <a className="gradient-btn gradient-btn--outline" href="#contact">
                 Reach out... <span aria-hidden="true">↗</span>
@@ -471,39 +520,193 @@ function Portfolio() {
           </div>
         </section>
 
-        <section id="journal" className="bg-bg py-16 md:py-24">
+        <section id="about" className="scroll-mt-24 overflow-hidden bg-bg py-16 md:py-24">
           <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
             <SectionHeader
-              eyebrow="Journal"
-              title="Recent"
-              italic="thoughts"
-              description="Notes on design, technology, and the small decisions that make products feel human."
-              action="View all"
+              eyebrow="About Me"
+              title="Who"
+              italic="am I?"
+              description="Product designer with a background in communication design, building products and the systems that help them scale."
+              action="Let&apos;s talk"
             />
 
-            <div className="space-y-3">
-              {journalEntries.map((entry, index) => (
-                <motion.a
-                  key={entry.title}
-                  href="#contact"
-                  className="journal-row group flex items-center gap-4 rounded-[40px] border border-stroke bg-surface/30 p-3 transition-colors hover:bg-surface sm:gap-6 sm:rounded-full sm:p-4"
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: index * 0.06, ease: EASE }}
-                  viewport={{ once: true, margin: "-60px" }}
-                >
-                  <img className="h-20 w-20 shrink-0 rounded-full object-cover grayscale transition duration-500 group-hover:grayscale-0 sm:h-24 sm:w-28 sm:rounded-[32px]" src={entry.src} alt={entry.alt} loading="lazy" />
-                  <div className="min-w-0 flex-1 py-2">
-                    <h3 className="text-base font-medium tracking-tight text-text-primary sm:text-xl md:text-2xl">{entry.title}</h3>
-                    <p className="mt-1 hidden text-sm text-muted md:block">{entry.summary}</p>
-                  </div>
-                  <div className="hidden shrink-0 text-right text-xs uppercase tracking-[0.15em] text-muted sm:block">
-                    <p>{entry.readTime}</p>
-                    <p className="mt-2 text-text-primary/60">{entry.date}</p>
-                  </div>
-                  <span className="mr-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-stroke text-muted transition group-hover:-rotate-45 group-hover:border-text-primary/30 group-hover:text-text-primary" aria-hidden="true">↗</span>
-                </motion.a>
-              ))}
+            <div className="grid items-stretch gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8">
+
+ <motion.figure
+  className="about-portrait group relative min-h-[430px] overflow-hidden rounded-3xl border border-stroke bg-surface sm:min-h-[520px]"
+  initial={{ opacity: 0, x: -36 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  whileHover={{ y: -6 }}
+  transition={{ duration: 0.9, ease: EASE }}
+  viewport={{ once: true, margin: "-80px" }}
+>
+  <img
+    className="absolute inset-0 h-full w-full object-cover object-center transition duration-1000 ease-out group-hover:scale-[1.04] group-hover:saturate-125"
+    src="/images/exploration-iridescent-fold.png"    
+    alt="Abstract iridescent fabric artwork"
+    loading="lazy"
+  />
+
+  <div
+    className="halftone absolute inset-0 opacity-30"
+    aria-hidden="true"
+  />
+</motion.figure>
+              <motion.div
+                className="flex flex-col rounded-3xl border border-stroke bg-surface/30 p-6 sm:p-8 lg:p-10"
+                initial={{ opacity: 0, x: 36 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.9, delay: 0.08, ease: EASE }}
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <div className="flex items-center gap-5">
+                  <h3 className="shrink-0 text-4xl font-medium tracking-[-0.04em] text-text-primary sm:text-5xl">Arnoo</h3>
+                  <span className="h-px flex-1 bg-stroke" aria-hidden="true" />
+                </div>
+                <p className="mt-7 font-display text-3xl italic leading-[1.05] text-text-primary sm:text-4xl lg:text-[2.75rem]">
+                  UX Researcher &amp; Product Designer
+                </p>
+                <div className="mt-7 space-y-2 text-sm leading-6 text-muted sm:text-base">
+                  <p>Focused on context, aesthetics and clarity.</p>
+                  <p>Powered by a deep love for design, movement and thoughtful systems.</p>
+                </div>
+                <blockquote className="about-quote mt-auto pt-9 font-display text-xl leading-[1.35] text-text-primary/85 sm:text-2xl">
+                  I also had the opportunity to work with major Kyrgyz businesses & companies.
+                </blockquote>
+                <ul className="mt-6 flex items-center -space-x-2" aria-label="Selected client collaborations">
+                  {aboutPartners.map((partner, index) => (
+                    <motion.li
+                      key={partner.name}
+                      className="relative first:ml-0"
+                      aria-label={partner.name}
+                      title={partner.name}
+                      whileHover={{ y: -5, rotate: index === 1 ? -4 : index === 2 ? 4 : 0, zIndex: 10 }}
+                      transition={{ duration: 0.25, ease: EASE }}
+                    >
+                      <span className="relative flex h-12 w-12 overflow-hidden rounded-full border-2 border-[#2b2e33] bg-[#121417] shadow-lg shadow-black/30 sm:h-14 sm:w-14">
+                        <span className="absolute inset-0 grid place-items-center text-[10px] font-semibold uppercase tracking-[-0.03em] text-white/70" aria-hidden="true">
+                          {partner.fallback}
+                        </span>
+                        <img
+                          className="relative h-full w-full object-cover"
+                          src={partner.logo}
+                          alt=""
+                          loading="lazy"
+                          onError={(event) => {
+                            event.currentTarget.style.display = "none";
+                          }}
+                        />
+                      </span>
+                    </motion.li>
+                  ))}
+                </ul>
+
+              </motion.div>
+            </div>
+
+            <div className="mt-14 md:mt-20">
+              <motion.div
+                className="mb-5 flex items-center gap-4"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: EASE }}
+                viewport={{ once: true, margin: "-60px" }}
+              >
+                <span className="h-px w-8 bg-stroke" aria-hidden="true" />
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted">Recent career</h3>
+              </motion.div>
+
+              <div className="divide-y divide-stroke border-y border-stroke">
+                {career.map((item, index) => (
+                  <motion.article
+                    key={item.company}
+                    className="about-career-row group grid gap-4 py-5 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6"
+                    initial={{ opacity: 0, y: 22 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: index * 0.08, ease: EASE }}
+                    viewport={{ once: true, margin: "-60px" }}
+                  >
+                    <span className="about-mark overflow-hidden" aria-hidden="true"> <img className="h-full w-full object-cover" src={item.icon} alt=""  /></span>
+                    <div className="min-w-0">
+                      <p className="font-display text-2xl leading-tight text-text-primary sm:text-3xl">
+                        {item.company}<span className="text-muted">, {item.role}</span>
+                      </p>
+                    </div>
+                    <p className="pl-[4.75rem] text-sm uppercase tracking-[0.12em] text-muted sm:pl-0 sm:text-right">{item.period}</p>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+
+<div className="mt-14 md:mt-20">
+  <motion.div
+    className="mb-5 flex items-center gap-4"
+    initial={{ opacity: 0, y: 18 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, ease: EASE }}
+    viewport={{ once: true, margin: "-60px" }}
+  >
+    <span className="h-px w-8 bg-stroke" aria-hidden="true" />
+    <h3 className="text-xs uppercase tracking-[0.3em] text-muted">
+      Education
+    </h3>
+  </motion.div>
+
+  <motion.article
+    className="about-career-row group grid gap-4 border-y border-stroke py-5 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6"
+    initial={{ opacity: 0, y: 22 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.75, ease: EASE }}
+    viewport={{ once: true, margin: "-60px" }}
+  >
+<span className="about-mark overflow-hidden" aria-hidden="true">
+  <img
+    className="h-full w-full object-cover"
+    src="/icons/google.svg"
+    alt=""
+  />
+</span>
+
+    <p className="font-display text-2xl text-text-primary sm:text-3xl">
+      Google UX Design Certificate
+    </p>
+
+    <p className="pl-[4.75rem] text-sm uppercase tracking-[0.12em] text-muted sm:pl-0 sm:text-right">
+      2024
+    </p>
+  </motion.article>
+</div>
+
+            <div className="mt-14 md:mt-20">
+              <motion.div
+                className="mb-7 flex items-center gap-4"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: EASE }}
+                viewport={{ once: true, margin: "-60px" }}
+              >
+                <span className="h-px w-8 bg-stroke" aria-hidden="true" />
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted">Tools I like to use</h3>
+              </motion.div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {tools.map((tool, index) => (
+                  <motion.article
+                    key={tool.name}
+                    className="about-tool-card group flex items-center gap-4 rounded-2xl border border-stroke bg-surface/25 p-4 sm:p-5"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.65, delay: (index % 2) * 0.07, ease: EASE }}
+                    viewport={{ once: true, margin: "-50px" }}
+                  >
+                    <span className="about-tool-mark overflow-hidden" aria-hidden="true"> <img className="h-full w-full object-cover" src={tool.icon} alt=""/></span>
+                    <div>
+                      <p className="font-display text-xl text-text-primary sm:text-2xl">{tool.name}</p>
+                      <p className="mt-0.5 text-sm text-muted">{tool.detail}</p>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -607,7 +810,7 @@ function Portfolio() {
               Let&apos;s make it <em className="font-display font-normal">real.</em>
             </h2>
             <a className="gradient-btn gradient-btn--glass mt-10" href="https://t.me/kruuj" target="_blank" rel="noreferrer">
-              Contact me <span aria-hidden="true">↗</span>
+              Telegram <span aria-hidden="true">➤</span>
             </a>
           </div>
 
