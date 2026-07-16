@@ -423,17 +423,38 @@ function Portfolio() {
         aria-hidden={isLoading}
       >
         <section ref={heroRef} id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-          <video className="absolute left-1/2 top-[40%] scale-120 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover" 
-          src="/videos/fly.mp4" 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          preload="auto" 
-          aria-hidden="true" 
+          <img
+            className="hero-poster-media absolute left-1/2 top-[40%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-120 object-cover"
+            src="/videos/fly-poster.jpg"
+            alt=""
+            width="1280"
+            height="720"
+            fetchPriority="high"
+            aria-hidden="true"
           />
+          <video
+            className="hero-video-media absolute left-1/2 top-[40%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-120 object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/videos/fly-poster.jpg"
+            aria-hidden="true"
+          >
+            <source
+              src="/videos/fly.webm"
+              type="video/webm"
+              media="(min-width: 768px) and (prefers-reduced-motion: no-preference)"
+            />
+            <source
+              src="/videos/fly.mp4"
+              type="video/mp4"
+              media="(min-width: 768px) and (prefers-reduced-motion: no-preference)"
+            />
+          </video>
 
-          <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-bg to-transparent" aria-hidden="true" />
 
           <div className="translate-y-16 md:translate-y-16 relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-32 text-center">
