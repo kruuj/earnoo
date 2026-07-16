@@ -3,9 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-const DURATION_MS = 2_700;
-const COMPLETION_DELAY_MS = 400;
-const WORD_INTERVAL_MS = 900;
+const DURATION_MS = 2_000;
+const COMPLETION_DELAY_MS = 500;
+const WORD_INTERVAL_MS = 750;
 const WORDS = ["Design", "Create", "Inspire"] as const;
 
 export interface LoadingScreenProps {
