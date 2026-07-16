@@ -445,12 +445,12 @@ function Portfolio() {
             <source
               src="/videos/fly.webm"
               type="video/webm"
-              media="(min-width: 768px) and (prefers-reduced-motion: no-preference)"
+              media="(prefers-reduced-motion: no-preference)"
             />
             <source
               src="/videos/fly.mp4"
               type="video/mp4"
-              media="(min-width: 768px) and (prefers-reduced-motion: no-preference)"
+              media="(prefers-reduced-motion: no-preference)"
             />
           </video>
 
