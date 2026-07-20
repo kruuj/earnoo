@@ -449,7 +449,7 @@ function Portfolio() {
       >
         <section ref={heroRef} id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
           <img
-            className="hero-poster-media absolute left-1/2 top-[40%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-120 object-cover"
+            className="hero-poster-media absolute left-1/2 top-[30%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-100 object-cover"
             src="/videos/fly-poster.jpg"
             alt=""
             width="1280"
@@ -458,7 +458,7 @@ function Portfolio() {
             aria-hidden="true"
           />
           <video
-            className="hero-video-media absolute left-1/2 top-[40%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-120 object-cover"
+            className="hero-video-media absolute left-1/2 top-[30%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-100 object-cover"
             autoPlay
             muted
             loop
