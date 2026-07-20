@@ -16,6 +16,7 @@ export type LightboxItem = {
 export type LightboxProps = {
   item: LightboxItem | null;
   onClose: () => void;
+  closeLabel: string;
 };
 
 const dialogTransition: Transition = {
@@ -23,7 +24,7 @@ const dialogTransition: Transition = {
   ease: [0.25, 0.1, 0.25, 1],
 };
 
-export function Lightbox({ item, onClose }: LightboxProps) {
+export function Lightbox({ item, onClose, closeLabel }: LightboxProps) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -144,7 +145,7 @@ export function Lightbox({ item, onClose }: LightboxProps) {
             <button
               ref={closeButtonRef}
               type="button"
-              aria-label="Close lightbox"
+              aria-label={closeLabel}
               onClick={onClose}
               className="absolute right-2 top-2 z-10 grid size-11 place-items-center rounded-full border border-white/15 bg-black/70 text-2xl leading-none text-white backdrop-blur-md transition hover:scale-105 hover:border-white/40 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black md:right-4 md:top-4"
             >

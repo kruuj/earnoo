@@ -6,20 +6,28 @@ import { useEffect, useRef, useState } from "react";
 const DURATION_MS = 2_000;
 const COMPLETION_DELAY_MS = 500;
 const WORD_INTERVAL_MS = 750;
-const WORDS = ["Design", "Create", "Inspire"] as const;
 
 export interface LoadingScreenProps {
   onComplete: () => void;
+  ariaLabel: string;
+  heading: string;
+  words: readonly string[];
 }
 
-export function LoadingScreen({ onComplete }: LoadingScreenProps) {
+export function LoadingScreen({ onComplete, ariaLabel, heading, words }: LoadingScreenProps) {
   const [count, setCount] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
   const onCompleteRef = useRef(onComplete);
+  const wordsRef = useRef(words);
+  const activeWord = words[wordIndex % Math.max(words.length, 1)] ?? "";
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
+
+  useEffect(() => {
+    wordsRef.current = words;
+  }, [words]);
 
   useEffect(() => {
     const startedAt = performance.now();
@@ -28,7 +36,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     let completed = false;
 
     const wordTimer = window.setInterval(() => {
-      setWordIndex((current) => (current + 1) % WORDS.length);
+      setWordIndex((current) => (current + 1) % Math.max(wordsRef.current.length, 1));
     }, WORD_INTERVAL_MS);
 
     const updateCounter = (now: number) => {
@@ -66,7 +74,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       className="fixed inset-0 z-[9999] bg-bg"
       role="status"
       aria-busy="true"
-      aria-label="Loading portfolio"
+      aria-label={ariaLabel}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -78,7 +86,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         transition={{ duration: 0.6, ease: "easeOut" }}
         aria-hidden="true"
       >
-        Portfolio
+        {heading}
       </motion.p>
 
       <div
@@ -87,14 +95,14 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       >
         <AnimatePresence mode="wait">
           <motion.p
-            key={WORDS[wordIndex]}
+            key={activeWord}
             className="font-display text-4xl italic text-text-primary/80 md:text-6xl lg:text-7xl"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {WORDS[wordIndex]}
+            {activeWord}
           </motion.p>
         </AnimatePresence>
       </div>

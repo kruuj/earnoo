@@ -123,6 +123,12 @@ video {
   background: linear-gradient(270deg, #89aacc 0%, #4e85bf 100%);
 }
 
+@media (max-width: 360px) {
+  .mobile-nav-logo {
+    display: none;
+  }
+}
+
 .say-hi {
   display: inline-flex;
   align-items: center;

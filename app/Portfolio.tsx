@@ -9,41 +9,32 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { HlsVideo } from "./components/HlsVideo";
 import { Lightbox } from "./components/Lightbox";
 import { LoadingScreen } from "./components/LoadingScreen";
+import { portfolioCopy, type Language } from "./portfolio-copy";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
-
-const roles = ["Creative", "Designer", "UX Enthusiast"];
 
 const projects = [
   {
     title: "FINCA Bank",
-    category: "UX Research · Product Design · Mobile App · Desktop",
     src: "/images/finca.png",
-    alt: "Red sports car speeding through a dimly lit tunnel",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
   },
   {
     title: "Bishkek Petroleum",
-    category: "Landing Page · WEB · Branding",
     src: "/images/bishkekpetroleum.png",
-    alt: "Monolithic concrete building rising against a black sky",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
   },
   {
     title: "TOP - Football",
-    category: "Mobile App · UX/UI Design",
     src: "/images/topfootball.png",
-    alt: "Low-key monochrome portrait emerging from deep shadow",
     span: "md:col-span-5",
     ratio: "aspect-[4/3] md:aspect-auto",
   },
   {
     title: "APAP University",
-    category: "Landing Page · WEB · Branding",
     src: "/images/apap.png",
-    alt: "Gradient business cards arranged on a wooden surface",
     span: "md:col-span-7",
     ratio: "aspect-[16/11]",
   },
@@ -51,40 +42,26 @@ const projects = [
 
 const career = [
   {
-    company: "FINCA Bank",
-    role: "UX Researcher & Middle Product Designer",
-    period: "2026 — current",
     icon: "/icons/Finca.svg",
   },
-
   {
-    company: "Project-Based Work",
-    role: "Independent Designer, Branding & Product Design",
-    period: "2025",
     icon: "/icons/deep.png",
   },
-  
   {
-    company: "Oracle Digital",
-    role: "UX/UI Designer",
-    period: "2024",
     icon: "/icons/oracle.png",
   },
 ];
 
 const aboutPartners = [
   {
-    name: "Bishkek Petroleum",
     logo: "/icons/bishkek-petroleum.png",
     fallback: "BP",
   },
   {
-    name: "Bay Tash Group",
     logo: "/icons/ay-tash-group.png",
     fallback: "BT",
   },
   {
-    name: "Selected Kyrgyz partner",
     logo: "/icons/kyrgyz-partner.png",
     fallback: "KG",
   },
@@ -93,32 +70,26 @@ const aboutPartners = [
 const tools = [
   {
     name: "Figma",
-    detail: "general design tool",
     icon: "/icons/figma.png",
   },
   {
     name: "Higgsfield",
-    detail: "visual generations",
     icon: "/icons/higgsfield.png",
   },
   {
     name: "ChatGPT + Gemini",
-    detail: "research & ideation",
     icon: "/icons/chat.png",
   },
   {
     name: "Adobe After Effects",
-    detail: "product motion",
     icon: "/icons/ae.png",
   },
   {
     name: "Codex",
-    detail: "coding + agentic work",
     icon: "/icons/codex.png",
   },
   {
     name: "Notion",
-    detail: "project management",
     icon: "/icons/notion.png",
   },
 ];
@@ -127,45 +98,39 @@ const explorations = [
   {
     title: "Credit Finca",
     src: "/images/credot.png",
-    alt: "Translucent blue glass curves catching soft light",
     rotation: -4,
   },
   {
     title: "TOP Football",
     src: "/images/top.png",
-    alt: "Multicolored neon trails sweeping across black",
     rotation: 3,
   },
   {
     title: "APAP Academy",
     src: "/images/unik.png",
-    alt: "Blue and yellow oil forming fluid macro patterns",
     rotation: 5,
   },
   {
     title: "Bishkek Petroleum",
     src: "/images/bpwan.png",
-    alt: "Color-blocked architectural steps beneath a blue sky",
     rotation: -3,
   },
   {
     title: "Yldam Express",
     src: "/images/yldam.png",
-    alt: "Dark holographic fabric reflecting rainbow highlights",
     rotation: -5,
   },
   {
     title: "Bay Tash Group",
     src: "/images/bay.png",
-    alt: "Aerial view of pink sand dunes shaped by wind",
     rotation: 4,
   },
 ];
 
 const stats = [
-  { value: "3+", label: "Years Experience" },
-  { value: "15+", label: "Projects Done" },
-  { value: "99%", label: "Satisfied Clients" },
+  { value: "3+" },
+  { value: "15+" },
+  { value: "99%" },
 ];
 
 const socialLinks = [
@@ -213,12 +178,21 @@ function SectionHeader({
   );
 }
 
-function Navbar({ active }: { active: string }) {
+function Navbar({
+  active,
+  language,
+  onLanguageChange,
+}: {
+  active: string;
+  language: Language;
+  onLanguageChange: (language: Language) => void;
+}) {
   const [scrolled, setScrolled] = useState(false);
+  const copy = portfolioCopy[language].nav;
   const items = [
-    { label: "Home", href: "#home", id: "home" },
-    { label: "Work", href: "#work", id: "work" },
-    { label: "About Me", href: "#about", id: "about" },
+    { label: copy.home, href: "#home", id: "home" },
+    { label: copy.work, href: "#work", id: "work" },
+    { label: copy.about, href: "#about", id: "about" },
   ];
 
   useEffect(() => {
@@ -231,13 +205,13 @@ function Navbar({ active }: { active: string }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 md:px-4 md:pt-6">
       <nav
-        aria-label="Primary navigation"
+        aria-label={copy.ariaLabel}
         className={
           "inline-flex max-w-full items-center rounded-full border border-white/10 bg-surface/90 p-2 backdrop-blur-md transition-shadow duration-300 " +
           (scrolled ? "shadow-md shadow-black/30" : "")
         }
       >
-        <a className="logo-ring group" href="#home" aria-label="Erkinbekov Arnoo, home">
+        <a className="logo-ring mobile-nav-logo group" href="#home" aria-label={copy.logoLabel}>
           <span className="flex h-full w-full items-center justify-center rounded-full bg-bg font-display text-[13px] italic transition-transform group-hover:scale-110">
             EA
           </span>
@@ -249,7 +223,7 @@ function Navbar({ active }: { active: string }) {
             href={item.href}
             aria-current={active === item.id ? "page" : undefined}
             className={
-              "rounded-full px-2.5 py-1.5 text-[11px] transition-colors sm:px-4 sm:py-2 sm:text-sm " +
+              "whitespace-nowrap rounded-full px-2.5 py-1.5 text-[11px] transition-colors sm:px-4 sm:py-2 sm:text-sm " +
               (active === item.id
                 ? "bg-stroke/60 text-text-primary"
                 : "text-muted hover:bg-stroke/50 hover:text-text-primary")
@@ -259,9 +233,32 @@ function Navbar({ active }: { active: string }) {
           </a>
         ))}
         <span className="mx-1 hidden h-5 w-px bg-stroke sm:block" aria-hidden="true" />
-        <a className="say-hi" href="https://t.me/kruuj" target="_blank" rel="noreferrer">
-          <span>Contact Me</span><span aria-hidden="true">.✦ ݁˖</span>
+        <a className="say-hi !hidden sm:!inline-flex" href="https://t.me/kruuj" target="_blank" rel="noreferrer">
+          <span>{copy.contact}</span><span aria-hidden="true">.✦ ݁˖</span>
         </a>
+        <div
+          className="ml-1 inline-flex shrink-0 rounded-full border border-white/10 bg-bg/70 p-0.5"
+          role="group"
+          aria-label={copy.languageLabel}
+        >
+          {(["en", "ru"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={language === option}
+              aria-label={option === "en" ? copy.switchToEnglish : copy.switchToRussian}
+              onClick={() => onLanguageChange(option)}
+              className={
+                "h-7 min-w-8 rounded-full px-1.5 text-[10px] font-medium uppercase transition-colors sm:h-8 sm:min-w-9 sm:text-[11px] " +
+                (language === option
+                  ? "bg-text-primary text-bg"
+                  : "text-muted hover:bg-stroke/60 hover:text-text-primary")
+              }
+            >
+              {option}
+            </button>
+          ))}
+        </div>
       </nav>
     </header>
   );
@@ -269,10 +266,12 @@ function Navbar({ active }: { active: string }) {
 
 function Portfolio() {
   const [isLoading, setIsLoading] = useState(true);
+  const [language, setLanguage] = useState<Language>("en");
   const [roleIndex, setRoleIndex] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
   const [lightboxItem, setLightboxItem] = useState<LightboxItem | null>(null);
   const [footerVideoReady, setFooterVideoReady] = useState(false);
+  const copy = portfolioCopy[language];
   const rootRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const explorationRef = useRef<HTMLElement>(null);
@@ -281,16 +280,33 @@ function Portfolio() {
   const footerRef = useRef<HTMLElement>(null);
 
   const finishLoading = useCallback(() => setIsLoading(false), []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setRoleIndex((current) => (current + 1) % roles.length);
-    }, 2000);
-    return () => window.clearInterval(timer);
+  const changeLanguage = useCallback((nextLanguage: Language) => {
+    setLanguage(nextLanguage);
+    setRoleIndex(0);
+    setLightboxItem(null);
+    document.documentElement.lang = nextLanguage;
+    window.localStorage.setItem("portfolio-language", nextLanguage);
   }, []);
 
   useEffect(() => {
-    const sections = ["home", "work", "resume"]
+    const storedLanguage = window.localStorage.getItem("portfolio-language");
+    const initialLanguage: Language =
+      storedLanguage === "ru" ? "ru" : "en";
+
+    document.documentElement.lang = initialLanguage;
+    const frame = window.requestAnimationFrame(() => setLanguage(initialLanguage));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setRoleIndex((current) => (current + 1) % portfolioCopy[language].hero.roles.length);
+    }, 2000);
+    return () => window.clearInterval(timer);
+  }, [language]);
+
+  useEffect(() => {
+    const sections = ["home", "work", "about"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
@@ -413,8 +429,17 @@ function Portfolio() {
 
   return (
     <div ref={rootRef} className="min-h-screen bg-bg text-text-primary">
-      <AnimatePresence>{isLoading && <LoadingScreen onComplete={finishLoading} />}</AnimatePresence>
-      <Navbar active={activeSection} />
+      <AnimatePresence>
+        {isLoading && (
+          <LoadingScreen
+            onComplete={finishLoading}
+            ariaLabel={copy.loading.label}
+            heading={copy.loading.heading}
+            words={copy.loading.words}
+          />
+        )}
+      </AnimatePresence>
+      <Navbar active={activeSection} language={language} onLanguageChange={changeLanguage} />
 
       <motion.main
         animate={{ opacity: isLoading ? 0 : 1 }}
@@ -459,32 +484,33 @@ function Portfolio() {
 
           <div className="translate-y-16 md:translate-y-16 relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-32 text-center">
             <p className="blur-in mb-8 inline-flex items-center justify-center rounded-[18px] border border-white/20 bg-white/2 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.28em] text-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_24px_rgba(0,0,0,0.12)] backdrop-blur-sm backdrop-saturate-100">
-  Collection &apos;26 </p>
+              {copy.hero.collection}
+            </p>
             <h1 className="name-reveal mb-6 font-display text-6xl italic leading-[0.9] tracking-tight text-text-primary sm:text-7xl md:text-8xl lg:text-9xl">
               Erkinbekov Arnoo
             </h1>
             <p className="blur-in mb-5 text-base font-light text-muted md:text-xl">
-              A{" "}
+              {copy.hero.rolePrefix}{" "}
               <span key={roleIndex} className="inline-block animate-role-fade-in font-display text-xl italic text-text-primary md:text-2xl">
-                {roles[roleIndex]}
+                {copy.hero.roles[roleIndex]}
               </span>{" "}
-              lives in Kyrgyzstan.
+              {copy.hero.roleSuffix}
             </p>
             <p className="blur-in mb-12 max-w-md text-sm leading-6 text-muted md:text-base md:leading-7">
-              Designing seamless digital interactions by focusing on the unique nuances which bring systems to life.
+              {copy.hero.description}
             </p>
             <div className="blur-in flex flex-wrap items-center justify-center gap-4">
               <a className="gradient-btn gradient-btn--solid" href="/Arnoo UXUI Resume.pdf" download="Arnoo UXUI Resume.pdf">
-                CV / Resume <span aria-hidden="true">↓</span>
+                {copy.hero.resume} <span aria-hidden="true">↓</span>
               </a>
               <a className="gradient-btn gradient-btn--outline" href="#contact">
-                Reach out... <span aria-hidden="true">↗</span>
+                {copy.hero.reachOut} <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
 
           <div className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3" aria-hidden="true">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-muted">Scroll</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-muted">{copy.hero.scroll}</span>
             <span className="relative h-10 w-px overflow-hidden bg-stroke">
               <span className="animate-scroll-down absolute inset-x-0 h-4 bg-text-primary" />
             </span>
@@ -494,11 +520,11 @@ function Portfolio() {
         <section id="work" className="scroll-mt-20 bg-bg py-12 md:py-16">
           <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
             <SectionHeader
-              eyebrow="Selected Work"
-              title="Featured"
-              italic="projects"
-              description="A selection of projects I&apos;ve worked on, from concept to launch."
-              action="View all work"
+              eyebrow={copy.work.eyebrow}
+              title={copy.work.title}
+              italic={copy.work.italic}
+              description={copy.work.description}
+              action={copy.work.action}
             />
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
@@ -514,7 +540,7 @@ function Portfolio() {
                   <img
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-focus-within:scale-105"
                     src={project.src}
-                    alt={project.alt}
+                    alt={copy.work.projects[index].alt}
                     loading="lazy"
                   />
                   <div className="halftone absolute inset-0" aria-hidden="true" />
@@ -522,17 +548,17 @@ function Portfolio() {
                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-7">
                     <div className="transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
                       <p className="text-lg font-medium text-white md:text-xl">{project.title}</p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">{project.category}</p>
+                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">{copy.work.projects[index].category}</p>
                     </div>
                   </div>
                   <button
                     type="button"
                     className="absolute inset-0 flex cursor-pointer items-center justify-center bg-bg/70 opacity-0 backdrop-blur-lg transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
-                    onClick={() => setLightboxItem(project)}
-                    aria-label={"View " + project.title}
+                    onClick={() => setLightboxItem({ ...project, alt: copy.work.projects[index].alt })}
+                    aria-label={copy.work.viewAriaPrefix + " " + project.title}
                   >
                     <span className="animated-gradient-border rounded-full bg-white px-5 py-3 text-sm text-black shadow-xl">
-                      View — <em className="font-display">{project.title}</em>
+                      {copy.work.view} — <em className="font-display">{project.title}</em>
                     </span>
                   </button>
                 </motion.article>
@@ -544,11 +570,11 @@ function Portfolio() {
         <section id="about" className="scroll-mt-24 overflow-hidden bg-bg py-16 md:py-24">
           <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
             <SectionHeader
-              eyebrow="About Me"
-              title="Who"
-              italic="am I?"
-              description="Product designer with a background in communication design, building products and the systems that help them scale."
-              action="Let&apos;s talk"
+              eyebrow={copy.about.eyebrow}
+              title={copy.about.title}
+              italic={copy.about.italic}
+              description={copy.about.description}
+              action={copy.about.action}
             />
 
             <div className="grid items-stretch gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8">
@@ -564,7 +590,7 @@ function Portfolio() {
   <img
     className="absolute inset-0 h-full w-full object-cover object-center transition duration-1000 ease-out group-hover:scale-[1.04] group-hover:saturate-125"
     src="/images/exploration-iridescent-fold.png"    
-    alt="Abstract iridescent fabric artwork"
+    alt={copy.about.portraitAlt}
     loading="lazy"
   />
 
@@ -585,22 +611,22 @@ function Portfolio() {
                   <span className="h-px flex-1 bg-stroke" aria-hidden="true" />
                 </div>
                 <p className="mt-7 font-display text-3xl italic leading-[1.05] text-text-primary sm:text-4xl lg:text-[2.75rem]">
-                  UX Researcher &amp; Product Designer
+                  {copy.about.role}
                 </p>
                 <div className="mt-7 space-y-2 text-sm leading-6 text-muted sm:text-base">
-                  <p>Focused on context, aesthetics and clarity.</p>
-                  <p>Powered by a deep love for design, movement and thoughtful systems.</p>
+                  <p>{copy.about.focus}</p>
+                  <p>{copy.about.motivation}</p>
                 </div>
                 <blockquote className="about-quote mt-auto pt-9 font-display text-xl leading-[1.35] text-text-primary/85 sm:text-2xl">
-                  I also had the opportunity to work with major Kyrgyz businesses & companies.
+                  {copy.about.quote}
                 </blockquote>
-                <ul className="mt-6 flex items-center -space-x-2" aria-label="Selected client collaborations">
+                <ul className="mt-6 flex items-center -space-x-2" aria-label={copy.about.partnersLabel}>
                   {aboutPartners.map((partner, index) => (
                     <motion.li
-                      key={partner.name}
+                      key={partner.logo}
                       className="relative first:ml-0"
-                      aria-label={partner.name}
-                      title={partner.name}
+                      aria-label={copy.about.partnerNames[index]}
+                      title={copy.about.partnerNames[index]}
                       whileHover={{ y: -5, rotate: index === 1 ? -4 : index === 2 ? 4 : 0, zIndex: 10 }}
                       transition={{ duration: 0.25, ease: EASE }}
                     >
@@ -634,13 +660,13 @@ function Portfolio() {
                 viewport={{ once: true, margin: "-60px" }}
               >
                 <span className="h-px w-8 bg-stroke" aria-hidden="true" />
-                <h3 className="text-xs uppercase tracking-[0.3em] text-muted">Recent career</h3>
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted">{copy.about.careerTitle}</h3>
               </motion.div>
 
               <div className="divide-y divide-stroke border-y border-stroke">
                 {career.map((item, index) => (
                   <motion.article
-                    key={item.company}
+                    key={item.icon}
                     className="about-career-row group grid gap-4 py-5 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6"
                     initial={{ opacity: 0, y: 22 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -650,10 +676,10 @@ function Portfolio() {
                     <span className="about-mark overflow-hidden" aria-hidden="true"> <img className="h-full w-full object-cover" src={item.icon} alt=""  /></span>
                     <div className="min-w-0">
                       <p className="font-display text-2xl leading-tight text-text-primary sm:text-3xl">
-                        {item.company}<span className="text-muted">, {item.role}</span>
+                        {copy.about.career[index].company}<span className="text-muted">, {copy.about.career[index].role}</span>
                       </p>
                     </div>
-                    <p className="pl-[4.75rem] text-sm uppercase tracking-[0.12em] text-muted sm:pl-0 sm:text-right">{item.period}</p>
+                    <p className="pl-[4.75rem] text-sm uppercase tracking-[0.12em] text-muted sm:pl-0 sm:text-right">{copy.about.career[index].period}</p>
                   </motion.article>
                 ))}
               </div>
@@ -669,7 +695,7 @@ function Portfolio() {
   >
     <span className="h-px w-8 bg-stroke" aria-hidden="true" />
     <h3 className="text-xs uppercase tracking-[0.3em] text-muted">
-      Education
+      {copy.about.educationTitle}
     </h3>
   </motion.div>
 
@@ -689,7 +715,7 @@ function Portfolio() {
 </span>
 
     <p className="font-display text-2xl text-text-primary sm:text-3xl">
-      Google UX Design Certificate
+      {copy.about.certificate}
     </p>
 
     <p className="pl-[4.75rem] text-sm uppercase tracking-[0.12em] text-muted sm:pl-0 sm:text-right">
@@ -707,7 +733,7 @@ function Portfolio() {
                 viewport={{ once: true, margin: "-60px" }}
               >
                 <span className="h-px w-8 bg-stroke" aria-hidden="true" />
-                <h3 className="text-xs uppercase tracking-[0.3em] text-muted">Tools I like to use</h3>
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted">{copy.about.toolsTitle}</h3>
               </motion.div>
 
               <div className="grid gap-3 sm:grid-cols-2">
@@ -723,7 +749,7 @@ function Portfolio() {
                     <span className="about-tool-mark overflow-hidden" aria-hidden="true"> <img className="h-full w-full object-cover" src={tool.icon} alt=""/></span>
                     <div>
                       <p className="font-display text-xl text-text-primary sm:text-2xl">{tool.name}</p>
-                      <p className="mt-0.5 text-sm text-muted">{tool.detail}</p>
+                      <p className="mt-0.5 text-sm text-muted">{copy.about.toolDetails[index]}</p>
                     </div>
                   </motion.article>
                 ))}
@@ -737,14 +763,14 @@ function Portfolio() {
             <div className="max-w-xl">
               <div className="mb-5 flex items-center justify-center gap-3">
                 <span className="h-px w-8 bg-stroke" />
-                <p className="text-xs uppercase tracking-[0.3em] text-muted">Explorations</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-muted">{copy.explorations.eyebrow}</p>
                 <span className="h-px w-8 bg-stroke" />
               </div>
               <h2 className="text-4xl font-medium tracking-[-0.04em] sm:text-5xl md:text-7xl">
-                Visual <em className="font-display font-normal">playground</em>
+                {copy.explorations.title} <em className="font-display font-normal">{copy.explorations.italic}</em>
               </h2>
               <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-muted md:text-base">
-                Uncommissioned studies, happy accidents, and ideas made simply to see where they lead.
+                {copy.explorations.description}
               </p>
               <a className="gradient-btn gradient-btn--outline mt-8" href="https://www.linkedin.com/in/arnoo-erkinbekov-4bb126301" target="_blank" rel="noreferrer">
                 Linkedin <span aria-hidden="true">↗</span>
@@ -754,31 +780,31 @@ function Portfolio() {
 
           <div className="pointer-events-none absolute inset-0 z-20 mx-auto grid w-full max-w-[1400px] grid-cols-2 gap-8 px-5 md:gap-40 md:px-12">
             <div data-parallax-column className="flex flex-col items-start gap-[34vh] pt-[38vh] md:pt-[30vh]">
-              {explorations.filter((_, index) => index % 2 === 0).map((item) => (
+              {explorations.map((item, index) => ({ item, index })).filter(({ index }) => index % 2 === 0).map(({ item, index }) => (
                 <button
                   key={item.title}
                   type="button"
                   className="exploration-card pointer-events-auto relative aspect-square w-full max-w-[320px] cursor-zoom-in overflow-hidden rounded-3xl border border-white/10 bg-surface shadow-2xl shadow-black/40"
                   style={{ transform: "rotate(" + item.rotation + "deg)" }}
-                  onClick={() => setLightboxItem(item)}
-                  aria-label={"Open " + item.title + " in lightbox"}
+                  onClick={() => setLightboxItem({ ...item, alt: copy.explorations.alts[index] })}
+                  aria-label={copy.explorations.openPrefix + " " + item.title + " " + copy.explorations.openSuffix}
                 >
-                  <img className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src={item.src} alt={item.alt} loading="lazy" />
+                  <img className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src={item.src} alt={copy.explorations.alts[index]} loading="lazy" />
                   <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-white backdrop-blur-md">{item.title}</span>
                 </button>
               ))}
             </div>
             <div data-parallax-column className="flex flex-col items-end gap-[34vh] pt-[74vh] md:pt-[62vh]">
-              {explorations.filter((_, index) => index % 2 === 1).map((item) => (
+              {explorations.map((item, index) => ({ item, index })).filter(({ index }) => index % 2 === 1).map(({ item, index }) => (
                 <button
                   key={item.title}
                   type="button"
                   className="exploration-card pointer-events-auto relative aspect-square w-full max-w-[320px] cursor-zoom-in overflow-hidden rounded-3xl border border-white/10 bg-surface shadow-2xl shadow-black/40"
                   style={{ transform: "rotate(" + item.rotation + "deg)" }}
-                  onClick={() => setLightboxItem(item)}
-                  aria-label={"Open " + item.title + " in lightbox"}
+                  onClick={() => setLightboxItem({ ...item, alt: copy.explorations.alts[index] })}
+                  aria-label={copy.explorations.openPrefix + " " + item.title + " " + copy.explorations.openSuffix}
                 >
-                  <img className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src={item.src} alt={item.alt} loading="lazy" />
+                  <img className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src={item.src} alt={copy.explorations.alts[index]} loading="lazy" />
                   <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-white backdrop-blur-md">{item.title}</span>
                 </button>
               ))}
@@ -790,7 +816,7 @@ function Portfolio() {
           <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-px overflow-hidden rounded-3xl border border-stroke bg-stroke sm:grid-cols-3">
             {stats.map((stat, index) => (
               <motion.div
-                key={stat.label}
+                key={stat.value}
                 className="bg-bg px-6 py-12 text-center md:py-16"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -798,7 +824,7 @@ function Portfolio() {
                 viewport={{ once: true, margin: "-80px" }}
               >
                 <p className="font-display text-6xl italic tracking-tight text-text-primary md:text-7xl lg:text-8xl">{stat.value}</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.22em] text-muted">{stat.label}</p>
+                <p className="mt-4 text-xs uppercase tracking-[0.22em] text-muted">{copy.stats[index]}</p>
               </motion.div>
             ))}
           </div>
@@ -817,7 +843,7 @@ function Portfolio() {
                 <div key={group} className="flex shrink-0">
                   {Array.from({ length: 10 }).map((_, index) => (
                     <span key={index} className="font-display text-5xl italic tracking-tight text-white/85 md:text-7xl lg:text-8xl">
-                      Building the future <span className="mx-5 text-[#89AACC]">•</span>
+                      {copy.footer.marquee} <span className="mx-5 text-[#89AACC]">•</span>
                     </span>
                   ))}
                 </div>
@@ -826,9 +852,9 @@ function Portfolio() {
           </div>
 
           <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center px-6 pb-20 pt-24 text-center md:px-10 md:pb-28 md:pt-32">
-            <p className="mb-5 text-xs uppercase tracking-[0.3em] text-white/45">Have something in mind?</p>
+            <p className="mb-5 text-xs uppercase tracking-[0.3em] text-white/45">{copy.footer.eyebrow}</p>
             <h2 className="max-w-4xl text-5xl font-medium leading-[0.95] tracking-[-0.05em] text-white sm:text-6xl md:text-8xl">
-              Let&apos;s make it <em className="font-display font-normal">real.</em>
+              {copy.footer.title} <em className="font-display font-normal">{copy.footer.italic}</em>
             </h2>
             <a className="gradient-btn gradient-btn--glass mt-10" href="https://t.me/kruuj" target="_blank" rel="noreferrer">
               Telegram <span aria-hidden="true">➤</span>
@@ -848,13 +874,13 @@ function Portfolio() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
               </span>
-              Available for projects
+              {copy.footer.availability}
             </div>
           </div>
         </footer>
       </motion.main>
 
-      <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />
+      <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} closeLabel={copy.lightbox.close} />
     </div>
   );
 }
