@@ -243,13 +243,14 @@ function Navbar({
         >
           {(["en", "ru"] as const).map((option) => (
             <button
+             style={{ fontSize: "12px" }}
               key={option}
               type="button"
               aria-pressed={language === option}
               aria-label={option === "en" ? copy.switchToEnglish : copy.switchToRussian}
               onClick={() => onLanguageChange(option)}
               className={
-                "h-7 min-w-8 rounded-full px-1.5 text-[10px] font-medium uppercase transition-colors sm:h-8 sm:min-w-9 sm:text-[11px] " +
+                "h-7 min-w-8 rounded-full px-1.5 text-[8px] font-medium uppercase transition-colors sm:h-8 sm:min-w-9 sm:text-[9px] " +
                 (language === option
                   ? "bg-text-primary text-bg"
                   : "text-muted hover:bg-stroke/60 hover:text-text-primary")
@@ -449,7 +450,7 @@ function Portfolio() {
       >
         <section ref={heroRef} id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
           <img
-            className="hero-poster-media absolute left-1/2 top-[30%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-100 object-cover"
+            className="hero-poster-media absolute left-1/2 top-[45%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-100 object-cover brightness-55"
             src="/videos/fly-poster.jpg"
             alt=""
             width="1280"
@@ -458,7 +459,7 @@ function Portfolio() {
             aria-hidden="true"
           />
           <video
-            className="hero-video-media absolute left-1/2 top-[30%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-100 object-cover"
+            className="hero-video-media absolute left-1/2 top-[45%] h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-100 object-cover brightness-55"
             autoPlay
             muted
             loop
